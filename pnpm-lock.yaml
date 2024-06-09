@@ -8,13 +8,13 @@ importers:
 
   .:
     dependencies:
-      '@wan-ui/hooks':
+      '@wan-element/hooks':
         specifier: workspace:*
         version: link:packages/hooks
-      '@wan-ui/theme':
+      '@wan-element/theme':
         specifier: workspace:*
         version: link:packages/theme
-      '@wan-ui/utils':
+      '@wan-element/utils':
         specifier: workspace:*
         version: link:packages/utils
       lodash-es:
@@ -23,7 +23,7 @@ importers:
       vue:
         specifier: ^3.4.19
         version: 3.4.27(typescript@5.4.5)
-      wan-ui:
+      wan-element:
         specifier: workspace:*
         version: link:packages/core
     devDependencies:
@@ -91,7 +91,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@wan-ui/components':
+      '@wan-element/components':
         specifier: workspace:*
         version: link:../components
 

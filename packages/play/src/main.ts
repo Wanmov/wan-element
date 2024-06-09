@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import WanUI from 'wan-ui'
+import WanElement from 'wan-element'
 
-createApp(App).use(WanUI).mount('#app')
+createApp(App).use(WanElement).mount('#app')

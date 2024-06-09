@@ -1,10 +1,10 @@
 {
-  "name": "@wan-ui/workspace",
+  "name": "@wan-element/workspace",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --filter @wan-ui/play dev"
+    "dev": "pnpm --filter @wan-element/play dev"
   },
   "keywords": [],
   "author": "",
@@ -28,9 +28,9 @@
   "dependencies": {
     "lodash-es": "^4.17.21",
     "vue": "^3.4.19",
-    "wan-ui":"workspace:*",
-    "@wan-ui/hooks":"workspace:*",
-    "@wan-ui/utils":"workspace:*",
-    "@wan-ui/theme":"workspace:*"
+    "wan-element":"workspace:*",
+    "@wan-element/hooks":"workspace:*",
+    "@wan-element/utils":"workspace:*",
+    "@wan-element/theme":"workspace:*"
   }
 }
