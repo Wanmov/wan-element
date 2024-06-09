@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --filter @wan-element/play dev"
+    "dev": "pnpm --filter @wan-element/play dev",
+    "docs:dev": "pnpm --filter @wan-element/docs dev",
+    "docs:build": "pnpm --filter @wan-element/docs build",
+    "test": "echo 'todo'"
   },
   "keywords": [],
   "author": "",
@@ -28,9 +31,9 @@
   "dependencies": {
     "lodash-es": "^4.17.21",
     "vue": "^3.4.19",
-    "wan-element":"workspace:*",
-    "@wan-element/hooks":"workspace:*",
-    "@wan-element/utils":"workspace:*",
-    "@wan-element/theme":"workspace:*"
+    "wan-element": "workspace:*",
+    "@wan-element/hooks": "workspace:*",
+    "@wan-element/utils": "workspace:*",
+    "@wan-element/theme": "workspace:*"
   }
 }
