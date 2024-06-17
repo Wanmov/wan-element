@@ -34,4 +34,6 @@ const slots = defineSlots();
 
 const _ref = ref<HTMLButtonElement>();
 </script>
-<style scope></style>
+<style scope>
+@import "./style.css";
+</style>

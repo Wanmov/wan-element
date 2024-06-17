@@ -1,0 +1,200 @@
+.wan-button-group {
+  --wan-button-group-border-color: var(--wan-border-color-lighter);
+}
+.wan-button {
+  --wan-button-font-weight: var(--wan-font-weight-primary);
+  --wan-button-border-color: var(--wan-border-color);
+  --wan-button-bg-color: var(--wan-fill-color-blank);
+  --wan-button-text-color: var(--wan-text-color-regular);
+  --wan-button-disabled-text-color: var(--wan-disabled-text-color);
+  --wan-button-disabled-bg-color: var(--wan-fill-color-blank);
+  --wan-button-disabled-border-color: var(--wan-border-color-light);
+  --wan-button-hover-text-color: var(--wan-color-primary);
+  --wan-button-hover-bg-color: var(--wan-color-primary-light-9);
+  --wan-button-hover-border-color: var(--wan-color-primary-light-7);
+  --wan-button-active-text-color: var(--wan-button-hover-text-color);
+  --wan-button-active-border-color: var(--wan-color-primary);
+  --wan-button-active-bg-color: var(--wan-button-hover-bg-color);
+  --wan-button-outline-color: var(--wan-color-primary-light-5);
+  --wan-button-active-color: var(--wan-text-color-primary);
+}
+
+.wan-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  height: 32px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--wan-button-text-color);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.1s;
+  font-weight: var(--wan-button-font-weight);
+  user-select: none;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--wan-button-bg-color);
+  border: var(--wan-border);
+  border-color: var(--wan-button-border-color);
+  padding: 8px 15px;
+  font-size: var(--wan-font-size-base);
+  border-radius: var(--wan-border-radius-base);
+  & + & {
+    margin-left: 12px;
+  }
+  &:hover,
+  &:focus {
+    color: var(--wan-button-hover-text-color);
+    border-color: var(--wan-button-hover-border-color);
+    background-color: var(--wan-button-hover-bg-color);
+    outline: none;
+  }
+  &:active {
+    color: var(--wan-button-active-text-color);
+    border-color: var(--wan-button-active-border-color);
+    background-color: var(--wan-button-active-bg-color);
+    outline: none;
+  }
+  /*plain*/
+  &.is-plain {
+    --wan-button-hover-text-color: var(--wan-color-primary);
+    --wan-button-hover-bg-color: var(--wan-fill-color-blank);
+    --wan-button-hover-border-color: var(--wan-color-primary);
+  }
+  /*round*/
+  &.is-round {
+    border-radius: var(--wan-border-radius-round);
+  }
+  /*circle*/
+  &.is-circle {
+    border-radius: 50%;
+    padding: 8px;
+  }
+  /*disabled*/
+  &.is-loading,
+  &.is-disabled,
+  &.is-disabled:hover,
+  &.is-disabled:focus,
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:focus {
+    color: var(--wan-button-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+    background-color: var(--wan-button-disabled-bg-color);
+    border-color: var(--wan-button-disabled-border-color);
+  }
+  [class*="wan-icon"] {
+    width: 1em;
+    height: 1em;
+  }
+}
+@each $val in primary, success, warning, info, danger {
+  .wan-button--$(val) {
+    --wan-button-text-color: var(--wan-color-white);
+    --wan-button-bg-color: var(--wan-color-$(val));
+    --wan-button-border-color: var(--wan-color-$(val));
+    --wan-button-outline-color: var(--wan-color-$(val)-light-5);
+    --wan-button-active-color: var(--wan-color-$(val)-dark-2);
+    --wan-button-hover-text-color: var(--wan-color-white);
+    --wan-button-hover-bg-color: var(--wan-color-$(val)-light-3);
+    --wan-button-hover-border-color: var(--wan-color-$(val)-light-3);
+    --wan-button-active-bg-color: var(--wan-color-$(val)-dark-2);
+    --wan-button-active-border-color: var(--wan-color-$(val)-dark-2);
+    --wan-button-disabled-text-color: var(--wan-color-white);
+    --wan-button-disabled-bg-color: var(--wan-color-$(val)-light-5);
+    --wan-button-disabled-border-color: var(--wan-color-$(val)-light-5);
+  }
+  .wan-button--$(val).is-plain {
+    --wan-button-text-color: var(--wan-color-$(val));
+    --wan-button-bg-color: var(--wan-color-$(val)-light-9);
+    --wan-button-border-color: var(--wan-color-$(val)-light-5);
+    --wan-button-hover-text-color: var(--wan-color-white);
+    --wan-button-hover-bg-color: var(--wan-color-$(val));
+    --wan-button-hover-border-color: var(--wan-color-$(val));
+    --wan-button-active-text-color: var(--wan-color-white);
+
+    --wan-button-disabled-text-color: var(--wan-color-$(val)-light-5);
+    --wan-button-disabled-bg-color: var(--wan-color-$(val)-light-9);
+    --wan-button-disabled-border-color: var(--wan-color-$(val)-light-8);
+  }
+}
+.wan-button--large {
+  --wan-button-size: 40px;
+  height: var(--wan-button-size);
+  padding: 12px 19px;
+  font-size: var(--wan-font-size-base);
+  border-radius: var(--wan-border-radius-base);
+  /*circle*/
+  &.is-circle {
+    border-radius: 50%;
+    padding: 12px;
+  }
+}
+.wan-button--small {
+  --wan-button-size: 24px;
+  height: var(--wan-button-size);
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: calc(var(--wan-border-radius-base) - 1px);
+  /*circle*/
+  &.is-circle {
+    border-radius: 50%;
+    padding: 5px;
+  }
+  [class*="wan-icon"] {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.wan-button-group {
+  display: inline-block;
+  vertical-align: middle;
+
+  &::after {
+    clear: both;
+  }
+  & > :deep(.wan-button) {
+    float: left;
+    position: relative;
+    margin-left: 0;
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-color: var(--wan-button-group-border-color);
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left-color: var(--wan-button-group-border-color);
+    }
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+
+      border-left-color: var(--wan-button-group-border-color);
+      border-right-color: var(--wan-button-group-border-color);
+    }
+    &:not(:last-child) {
+      margin-right: -1px;
+    }
+    &:first-child:last-child {
+      border-top-right-radius: var(--wan-border-radius-base);
+      border-bottom-right-radius: var(--wan-border-radius-base);
+      border-top-left-radius: var(--wan-border-radius-base);
+      border-bottom-left-radius: var(--wan-border-radius-base);
+
+      &.is-round {
+        border-radius: var(--wan-border-radius-round);
+      }
+
+      &.is-circle {
+        border-radius: 50%;
+      }
+    }
+  }
+}
