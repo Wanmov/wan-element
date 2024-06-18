@@ -3,7 +3,7 @@ import { fn, within, userEvent, expect } from "@storybook/test";
 
 import { WanButton } from "wan-element";
 
-type Story = StoryObj<typeof WanButton> & { argTypes: ArgTypes };
+type Story = StoryObj<typeof WanButton> & { argTypes?: ArgTypes };
 
 const meta: Meta<typeof WanButton> = {
   title: "Example/Button",
@@ -75,6 +75,29 @@ export const Default: Story & { args: { content: string } } = {
   play: async ({ canvasElement, args, step }) => {
     const canvas = within(canvasElement);
     await step("click btn", async () => {
+      await userEvent.click(canvas.getByRole("button"));
+    });
+
+    expect(args.onClick).toHaveBeenCalled();
+  },
+};
+
+export const Circle: Story = {
+  args: {
+    icon: "search",
+  },
+  render: (args) => ({
+    components: { WanButton },
+    setup() {
+      return { args };
+    },
+    template: container(`
+      <wan-button circle v-bind="args"/>
+    `),
+  }),
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement);
+    await step("click button", async () => {
       await userEvent.click(canvas.getByRole("button"));
     });
 

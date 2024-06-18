@@ -65,7 +65,9 @@ const iconStyle = computed(() => {
 });
 
 const handleClick = (e: MouseEvent) => emits("click", e);
-const handleClickThrottle = throttle(handleClick, props.throttleDuration);
+const handleClickThrottle = throttle(handleClick, props.throttleDuration, {
+  trailing: false,
+});
 </script>
 <style scope>
 @import "./style.css";
