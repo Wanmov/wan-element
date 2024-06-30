@@ -24,4 +24,6 @@ provide(
   })
 );
 </script>
-<style scope></style>
+<style scoped>
+@import "./style.css"
+</style>
