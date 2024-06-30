@@ -5,7 +5,7 @@
     :is="tag"
     :autofocus="autofocus"
     :type="tag === 'button' ? nativeType : void 0"
-    :disabled="disabled || loading ? true : void 0"
+    :disabled="disabled || loading ? true : false"
     :class="{
       [`wan-button--${type}`]: type,
       [`wan-button--${size}`]: size,
@@ -40,9 +40,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import type { ButtonProps, ButtonEmits, ButtonInstance } from "./types";
 import { throttle } from "lodash-es";
+import { BUTTON_GROUP_CTX_KEY } from "./constant";
 
 defineOptions({
   name: "WanButton",
@@ -55,13 +56,16 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 });
 
 const emits = defineEmits<ButtonEmits>();
-
 const slots = defineSlots();
-
 const _ref = ref<HTMLButtonElement>();
+const ctx = inject(BUTTON_GROUP_CTX_KEY) || {};
+
+const size = computed(() => ctx?.size ?? props?.size ?? "");
+const type = computed(() => ctx?.type ?? props?.type ?? "");
+const disabled = computed(() => ctx?.disabled || props?.disabled || false);
 
 const iconStyle = computed(() => {
-  mariginRight: slots.default ? "6px" : "0px";
+  marginRight: slots.default ? "6px" : "0px";
 });
 
 const handleClick = (e: MouseEvent) => emits("click", e);

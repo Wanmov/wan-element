@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
 import Button from "./Button.vue";
+import ButtonGroup from "./ButtonGroup.vue";
 import Icon from "../Icon/Icon.vue";
 import type { ButtonType, ButtonSize } from "./types";
 
@@ -193,5 +194,66 @@ describe("Button.vue", () => {
     expect(iconElement.attributes("icon")).toBe("spinner");
     await wrapper.trigger("click");
     expect(wrapper.emitted("click")).toBeUndefined();
+  });
+});
+
+describe("ButtonGroup", () => {
+  test("basic buttongroup", async () => {
+    const wrapper = mount(() => (
+      <ButtonGroup>
+        <Button>button 1</Button>
+        <Button>button 2</Button>
+      </ButtonGroup>
+    ));
+
+    expect(wrapper.classes()).toContain("wan-button-group");
+  });
+
+  it("button group size", () => {
+    const sizes = ["large", "default", "small"];
+    sizes.forEach((size) => {
+      const wrapper = mount(() => (
+        <ButtonGroup size={size as ButtonSize}>
+          <Button>button 1</Button>
+          <Button>button 2</Button>
+        </ButtonGroup>
+      ));
+
+      const buttonWrappers = wrapper.findAllComponents(Button);
+      buttonWrappers.forEach((buttonWrapper) => {
+        expect(buttonWrapper.classes()).toContain(`wan-button--${size}`);
+      });
+    });
+  });
+
+  it("button group type", () => {
+    const types = ["primary", "success", "warning", "danger", "info"];
+    types.forEach((type) => {
+      const wrapper = mount(() => (
+        <ButtonGroup type={type as ButtonType}>
+          <Button>button 1</Button>
+          <Button>button 2</Button>
+        </ButtonGroup>
+      ));
+
+      const buttonWrappers = wrapper.findAllComponents(Button);
+      buttonWrappers.forEach((buttonWrapper) => {
+        expect(buttonWrapper.classes()).toContain(`wan-button--${type}`);
+      });
+    });
+  });
+
+  it("button group disabled", () => {
+    const wrapper = mount(() => (
+      <ButtonGroup disabled>
+        <Button>button 1</Button>
+        <Button>button 2</Button>
+      </ButtonGroup>
+    ));
+
+    const buttonWrappers = wrapper.findAllComponents(Button);
+    buttonWrappers.forEach((buttonWrapper) => {
+      expect(buttonWrapper.classes()).toContain(`is-disabled`);
+    });
   });
 });
