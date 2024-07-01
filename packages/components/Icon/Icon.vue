@@ -21,6 +21,6 @@ const props = defineProps<IconProps>();
 const filterProps = computed(() => omit(props, ["type", "color"]));
 const customStyles = computed(() => ({ color: props.color ?? void 0 }));
 </script>
-<style scope>
+<style>
 @import "./style.css";
 </style>
