@@ -26,7 +26,7 @@ export default defineConfig({
     outDir: "dist/es",
     lib: {
       entry: resolve(__dirname, "./index.ts"),
-      name: "WanUI",
+      name: "WanElement",
       fileName: "index",
       formats: ["es"],
     },
