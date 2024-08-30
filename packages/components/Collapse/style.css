@@ -1,0 +1,58 @@
+.wan-collapse {
+  --wan-collapse-border-color: var(--wan-border-color-light);
+  --wan-collapse-header-height: 48px;
+  --wan-collapse-header-bg-color: var(--wan-fill-color-blank);
+  --wan-collapse-header-text-color: var(--wan-text-color-primary);
+  --wan-collapse-header-font-size: 13px;
+  --wan-collapse-content-bg-color: var(--wan-fill-color-blank);
+  --wan-collapse-content-font-size: 13px;
+  --wan-collapse-content-text-color: var(--wan-text-color-primary);
+  --wan-collapse-disabled-text-color: var(--wan-disabled-text-color);
+  --wan-collapse-disabled-border-color: var(--wan-border-color-lighter);
+  border-top: 1px solid var(--wan-collapse-border-color);
+  border-bottom: 1px solid var(--wan-collapse-border-color);
+}
+
+.wan-collapse-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--wan-collapse-header-height);
+  line-height: var(--wan-collapse-header-height);
+  background-color: var(--wan-collapse-header-bg-color);
+  color: var(--wan-collapse-header-text-color);
+  cursor: pointer;
+  font-size: var(--wan-collapse-header-font-size);
+  font-weight: 500;
+  transition: border-bottom-color var(--wan-transition-duration);
+  outline: none;
+  border-bottom: 1px solid var(--wan-collapse-border-color);
+  &.is-disabled {
+    color: var(--wan-collapse-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+  }
+  &.is-active {
+    border-bottom-color: transparent;
+    .header-angle {
+      transform: rotate(90deg);
+    }
+  }
+  .header-angle {
+    transition: transform var(--wan-transition-duration);
+  }
+}
+.wan-collapse-item__content {
+  will-change: height;
+  background-color: var(--wan-collapse-content-bg-color);
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: var(--wan-collapse-content-font-size);
+  color: var(--wan-collapse-content-text-color);
+  border-bottom: 1px solid var(--wan-collapse-border-color);
+  padding-bottom: 25px;
+}
+.slide-enter-active,
+.slide-leave-active {
+  transition: height var(--wan-transition-duration) ease-in-out;
+}
