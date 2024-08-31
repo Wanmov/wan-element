@@ -11,11 +11,13 @@
       >
       <wan-icon icon="angle-right" class="header-angle" />
     </div>
-    <div class="wan-collapse-item__wapper" v-show="isActive">
-      <div class="wan-collapse-item__content" :id="`item-content-${name}`">
-        <slot></slot>
+    <transition name="slide" v-on="transitionEvents">
+      <div class="wan-collapse-item__wapper" v-show="isActive">
+        <div class="wan-collapse-item__content" :id="`item-content-${name}`">
+          <slot></slot>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -24,6 +26,7 @@ import { computed, inject } from "vue";
 import type { CollapseItemProps } from "./types";
 import { COLLAPSE_CTX_KEY } from "./constans";
 import WanIcon from "../Icon/Icon.vue";
+import transitionEvents from "./transitionEvents";
 
 defineOptions({ name: "WanCollapse" });
 

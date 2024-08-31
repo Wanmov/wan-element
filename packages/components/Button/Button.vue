@@ -72,6 +72,10 @@ const handleClick = (e: MouseEvent) => emits("click", e);
 const handleClickThrottle = throttle(handleClick, props.throttleDuration, {
   trailing: false,
 });
+
+defineExpose<ButtonInstance>({
+  ref: _ref,
+});
 </script>
 <style scope>
 @import "./style.css";

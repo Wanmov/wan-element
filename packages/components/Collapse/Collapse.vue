@@ -3,23 +3,22 @@
 </template>
 
 <script lang="ts" setup>
-import { provide, ref, watch } from "vue";
+import { provide, ref, watch, watchEffect } from "vue";
 import type {
   CollapseProps,
   CollapseItemEmits,
   CollapseItemName,
 } from "./types";
 import { COLLAPSE_CTX_KEY } from "./constans";
+import { debugWarn } from "@wan-element/utils/error";
+
+const COMP_NAME = "WanCollapse" as const;
 
 defineOptions({ name: "WanCollapse" });
 
 const props = defineProps<CollapseProps>();
 const emits = defineEmits<CollapseItemEmits>();
 const activeNames = ref(props.modelValue);
-
-if (props.accordion && activeNames.value.length > 1) {
-  console.warn("accordion mode should only have one active item");
-}
 
 function handleItemClick(item: CollapseItemName) {
   let _activeNames = [...activeNames.value];
@@ -44,6 +43,12 @@ function updateActiveNames(newNames: CollapseItemName[]) {
   emits("update:modelValue", newNames);
   emits("change", newNames);
 }
+
+watchEffect(() => {
+  if (props.accordion && activeNames.value.length > 1) {
+    debugWarn(COMP_NAME, "accordion mode should only have one active item");
+  }
+});
 
 watch(
   () => props.modelValue,
