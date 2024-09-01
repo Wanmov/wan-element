@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { WanCollapse, WanCollapseItem } from "wan-element";
+import "wan-element/dist/theme/Collapse.css";
 
 type Story = StoryObj<typeof WanCollapse>;
 

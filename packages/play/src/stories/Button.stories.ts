@@ -2,6 +2,7 @@ import type { Meta, StoryObj, ArgTypes } from "@storybook/vue3";
 import { fn, within, userEvent, expect } from "@storybook/test";
 
 import { WanButton, WanButtonGroup } from "wan-element";
+import "wan-element/dist/theme/Button.css";
 
 type Story = StoryObj<typeof WanButton> & { argTypes?: ArgTypes };
 
