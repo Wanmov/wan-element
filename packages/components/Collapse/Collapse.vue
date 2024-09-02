@@ -10,7 +10,7 @@ import type {
   CollapseItemName,
 } from "./types";
 import { COLLAPSE_CTX_KEY } from "./constans";
-import { debugWarn } from "@wan-element/utils/error";
+import { debugWarn } from "@wan-element/utils";
 
 const COMP_NAME = "WanCollapse" as const;
 

@@ -45,6 +45,8 @@ import type { ButtonProps, ButtonEmits, ButtonInstance } from "./types";
 import { throttle } from "lodash-es";
 import { BUTTON_GROUP_CTX_KEY } from "./constant";
 
+import WanIcon from "../Icon/Icon.vue";
+
 defineOptions({
   name: "WanButton",
 });
@@ -75,6 +77,9 @@ const handleClickThrottle = throttle(handleClick, props.throttleDuration, {
 
 defineExpose<ButtonInstance>({
   ref: _ref,
+  disabled,
+  size,
+  type,
 });
 </script>
 <style scope>

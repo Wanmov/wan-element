@@ -1,0 +1,100 @@
+.wan-alert {
+  --wan-alert-padding: 8px 16px;
+  --wan-alert-border-radius-base: var(--wan-border-radius-base);
+  --wan-alert-bg-color: var(--wan-color-white);
+  --wan-alert-title-font-size: 14px;
+  --wan-alert-title-font-size-with-desc: 16px;
+  --wan-alert-desc-font-size: 14px;
+  --wan-alert-text-color: var(--wan-text-color-primary);
+  --wan-alert-top-margin: 20px;
+  --wan-alert-icon-size: 16px;
+  --wan-alert-icon-margin: 8px;
+  --wan-alert-big-icon-size: 28px;
+  --wan-alert-big-icon-margin: 12px;
+}
+.wan-alert {
+  padding: var(--wan-alert-padding);
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: var(--wan-alert-border-radius-base);
+  position: relative;
+  background-color: var(--wan-alert-bg-color);
+  overflow: hidden;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--wan-transition-duration);
+  margin-top: var(--wan-alert-top-margin);
+  .wan-alert__icon {
+    color: var(--wan-alert-text-color);
+    font-size: var(--wan-alert-icon-size);
+    width: var(--wan-alert-icon-size);
+    margin-right: var(--wan-alert-icon-margin);
+    &.big-icon {
+      font-size: var(--wan-alert-big-icon-size);
+      width: var(--wan-alert-big-icon-size);
+      margin-right: var(--wan-alert-big-icon-margin);
+    }
+  }
+  .wan-alert__content {
+    color: var(--wan-alert-text-color);
+    vertical-align: text-top;
+    .wan-alert__title {
+      font-size: var(--wan-alert-title-font-size);
+      line-height: 24px;
+      &.with-desc {
+        font-size: var(--wan-alert-title-font-size-with-desc);
+      }
+    }
+    .wan-alert__description {
+      font-size: var(--wan-alert-desc-font-size);
+      margin: 0;
+    }
+
+    .wan-alert__close {
+      font-size: var(--wan-alert-close-font-size);
+      opacity: 1;
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      cursor: pointer;
+      :deep(.wan-icon) {
+        vertical-align: top;
+      }
+    }
+    &.wan-alert__light {
+      .wan-alert__close {
+        color: var(--wan-text-color-placeholder);
+      }
+    }
+    &.wan-alert__dark {
+      .wan-alert__close {
+        color: var(--wan-color-white);
+      }
+    }
+  }
+
+  &.text-center {
+    justify-content: center;
+    span,
+    p {
+      text-align: center;
+    }
+  }
+}
+
+.wan-alert-fade-enter-from,
+.wan-alert-fade-leave-to {
+  opacity: 0;
+}
+
+@each $val in success, warning, info, danger {
+  .wan-alert__$(val).wan-alert__light {
+    --wan-alert-text-color: var(--wan-color-$(val));
+    --wan-alert-bg-color: var(--wan-color-$(val)-light-9);
+  }
+  .wan-alert__$(val).wan-alert__dark {
+    --wan-alert-text-color: var(--wan-color-white);
+    --wan-alert-bg-color: var(--wan-color-$(val));
+  }
+}
