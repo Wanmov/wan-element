@@ -46,8 +46,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@wan-element/components": "workspace:*",
     "terser": "^5.31.6",
-    "vite-plugin-compression2": "^1.2.0",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-compression2": "^1.2.0"
   },
   "peerDependencies": {
     "vue": "^3.4.19"
