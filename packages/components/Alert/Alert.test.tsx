@@ -46,7 +46,7 @@ describe("Alert.vue", () => {
       props: {
         title,
         closable: true,
-        showIcon: false,
+        showIcon: true,
         type: type as AlertType,
       },
       slots: {
