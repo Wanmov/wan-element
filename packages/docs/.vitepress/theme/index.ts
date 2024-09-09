@@ -3,7 +3,7 @@ import { ElementPlusContainer } from "@vitepress-preview/component";
 import DefaultTheme from "vitepress/theme";
 import WanElement from "wan-element";
 
-import "@vitepress-demo-preview/component/dist/style.css";
+import "@vitepress-preview/component/style.css";
 import "wan-element/dist/index.css";
 
 export default {
