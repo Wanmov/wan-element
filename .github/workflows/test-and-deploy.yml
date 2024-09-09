@@ -45,7 +45,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build components
-        run: npm run buld
+        run: npm run build
 
       - name: Build docs
         run: npm run docs:build
