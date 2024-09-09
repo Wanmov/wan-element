@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
+import { readdir, readdirSync } from "fs";
+import { defer, delay, filter, includes, map } from "lodash-es";
+import { visualizer } from "rollup-plugin-visualizer";
+
 import vue from "@vitejs/plugin-vue";
 import shell from "shelljs";
-import { resolve } from "path";
 import dts from "vite-plugin-dts";
-import { readdirSync } from "fs";
-import { delay, filter, includes, map } from "lodash-es";
 import hooks from "./hooksPlugin";
 import terser from "@rollup/plugin-terser";
 
@@ -24,17 +26,18 @@ function getDirectoriesSync(basePath: string) {
 }
 
 function moveStyles() {
-  try {
-    readdirSync("./dist/es/theme");
-    shell.mv("./dist/es/theme", "./dist");
-  } catch (_) {
-    delay(moveStyles, TRY_MOVE_STYLES_DELAY);
-  }
+  readdir("./dist/es/theme", (err) => {
+    if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY);
+    defer(() => shell.mv("./dist/es/theme", "./dist"));
+  });
 }
 
 export default defineConfig({
   plugins: [
     vue(),
+    visualizer({
+      filename: "dist/stats.es.html",
+    }),
     dts({
       tsconfigPath: "../../tsconfig.build.json",
       outDir: "dist/types",
@@ -76,7 +79,7 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: true,
     lib: {
-      entry: resolve(__dirname, "./index.ts"),
+      entry: resolve(__dirname, "../index.ts"),
       name: "WanElement",
       fileName: "index",
       formats: ["es"],

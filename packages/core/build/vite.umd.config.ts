@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
-import { readFileSync } from "fs";
+import { readFile } from "fs";
 import { compression } from "vite-plugin-compression2";
 import { resolve } from "path";
-import { delay } from "lodash-es";
+import { defer, delay } from "lodash-es";
 
 import vue from "@vitejs/plugin-vue";
 import shell from "shelljs";
@@ -16,12 +16,10 @@ const isDev = process.env.NODE_ENV === "development";
 const isTest = process.env.NODE_ENV === "test";
 
 function moveStyles() {
-  try {
-    readFileSync("./dist/umd/index.css.gz");
-    shell.cp("./dist/umd/index.css", "./dist/index.css");
-  } catch (_) {
-    delay(moveStyles, TRY_MOVE_STYLES_DELAY);
-  }
+  readFile("./dist/umd/index.css.gz", (err) => {
+    if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY);
+    defer(() => shell.cp("./dist/umd/index.css", "./dist/index.css"));
+  });
 }
 
 export default defineConfig({
@@ -50,7 +48,7 @@ export default defineConfig({
   build: {
     outDir: "dist/umd",
     lib: {
-      entry: resolve(__dirname, "./index.ts"),
+      entry: resolve(__dirname, "../index.ts"),
       name: "WanElement",
       fileName: "index",
       formats: ["umd"],
