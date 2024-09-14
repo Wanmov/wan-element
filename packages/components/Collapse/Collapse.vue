@@ -38,10 +38,10 @@ function handleItemClick(item: CollapseItemName) {
   updateActiveNames(_activeNames);
 }
 
-function updateActiveNames(newNames: CollapseItemName[]) {
-  activeNames.value = newNames;
-  emits("update:modelValue", newNames);
-  emits("change", newNames);
+function updateActiveNames(val: CollapseItemName[]) {
+  activeNames.value = val;
+  emits("update:modelValue", val);
+  emits("change", val);
 }
 
 watchEffect(() => {
@@ -52,8 +52,8 @@ watchEffect(() => {
 
 watch(
   () => props.modelValue,
-  (newNames) => {
-    updateActiveNames(newNames);
+  (val) => {
+    updateActiveNames(val);
   }
 );
 
