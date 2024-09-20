@@ -10,7 +10,7 @@ const AppComp = defineComponent({
 
 const compA = withInstall(
   defineComponent({
-    name: "test1",
+    name: "CompA",
     setup() {
       return () => <div>test1</div>;
     },
@@ -19,7 +19,7 @@ const compA = withInstall(
 
 const compB = withInstall(
   defineComponent({
-    name: "test2",
+    name: "CompB",
     setup() {
       return () => <div>test2</div>;
     },
@@ -31,12 +31,12 @@ describe("install", () => {
     const wapper = mount(() => <div id="app"></div>);
     const app = createApp(AppComp);
 
-    app.use(compA).use(compB).mount(wapper.element);
+    app.use(compA).mount(wapper.element);
 
     expect(compA.install).toBeDefined();
     expect(compB.install).toBeDefined();
-    expect(wapper.findComponent(compA)).toBeTruthy();
-    expect(wapper.findComponent(compB)).toBeTruthy();
+    expect(app._context.components['CompA']).toBeTruthy();
+    expect(app._context.components['CompB']).toBeFalsy();
   });
   it("makeInstaller should be worked", () => {
     const wapper = mount(() => <div id="app"></div>);
@@ -46,7 +46,7 @@ describe("install", () => {
     app.use(installer).mount(wapper.element);
 
     expect(installer).toBeDefined();
-    expect(wapper.findComponent(compA)).toBeTruthy();
-    expect(wapper.findComponent(compB)).toBeTruthy();
+    expect(app._context.components['CompA']).toBeTruthy();
+    expect(app._context.components['CompB']).toBeTruthy();
   });
 });

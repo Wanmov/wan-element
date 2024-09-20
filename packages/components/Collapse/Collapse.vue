@@ -52,9 +52,7 @@ watchEffect(() => {
 
 watch(
   () => props.modelValue,
-  (val) => {
-    updateActiveNames(val);
-  }
+  (val) => updateActiveNames(val)
 );
 
 provide(COLLAPSE_CTX_KEY, {

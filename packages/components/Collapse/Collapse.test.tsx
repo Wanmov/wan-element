@@ -97,34 +97,11 @@ describe("Collapse.vue", () => {
   });
 
   test("modelValue 变更", async () => {
-    wrapper = mount(
-      () => (
-        <Collapse modelValue={["a"]} {...{ onChange }}>
-          <CollapseItem name="a" title="title a">
-            content a
-          </CollapseItem>
-          <CollapseItem name="b" title="title b">
-            content b
-          </CollapseItem>
-        </Collapse>
-      ),
-      {
-        global: {
-          stubs: ["WanIcon"],
-        },
-        attachTo: document.body,
-      }
-    );
-    headers = wrapper.findAll(".wan-collapse-item__header");
-    firstHeader = headers[0];
-    secondHeader = headers[1];
-
-
-    wrapper.setProps({ modelValue: ["b"] });
+    wrapper.setValue(["b"], "modelValue");
     await wrapper.vm.$nextTick();
 
-    expect(firstHeader.classes()).toContain("is-active");
-    expect(secondHeader.classes()).not.toContain("is-active");
+    expect(firstHeader.classes()).not.toContain("is-active");
+    expect(secondHeader.classes()).toContain("is-active");
   });
 
   test("手风琴模式", async () => {
@@ -150,8 +127,9 @@ describe("Collapse.vue", () => {
     firstHeader = headers[0];
     secondHeader = headers[1];
 
+    await firstHeader.trigger("click");
     await secondHeader.trigger("click");
-    //todo 重复触发待解决
+
     expect(onChange).toHaveBeenCalledTimes(2);
     expect(onChange).toHaveBeenCalledWith(["b"]);
     expect(firstHeader.classes()).not.toContain("is-active");

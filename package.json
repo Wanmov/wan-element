@@ -8,7 +8,7 @@
     "story": "pnpm --filter @wan-element/play storybook",
     "docs:dev": "pnpm --filter @wan-element/docs dev",
     "docs:build": "pnpm --filter @wan-element/docs build",
-    "test": "run-p test-utils test-comp",
+    "test": "run-s test-utils test-comp",
     "test-comp": "cross-env NODE_ENV=test pnpm --filter @wan-element/components test",
     "test-utils": "cross-env NODE_ENV=test pnpm --filter @wan-element/utils test",
     "build": "cross-env NODE_ENV=production pnpm --filter wan-element build",
