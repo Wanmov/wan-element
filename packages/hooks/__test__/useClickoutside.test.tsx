@@ -1,6 +1,5 @@
 import { ref, defineComponent } from "vue";
 import { mount } from "@vue/test-utils";
-
 import useClickOutside from "../useClickOutside";
 
 describe("hooks/useClickOutside", () => {
