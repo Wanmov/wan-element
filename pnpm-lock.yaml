@@ -23,6 +23,9 @@ importers:
       '@wan-element/utils':
         specifier: workspace:*
         version: link:packages/utils
+      '@wan-element/vite-plugins':
+        specifier: workspace:*
+        version: link:libs/vite-plugins
       jsdom:
         specifier: ^24.0.0
         version: 24.1.0
@@ -112,7 +115,9 @@ importers:
         specifier: ^1.8.27
         version: 1.8.27(typescript@5.4.5)
 
-  _node_modules/vitepress-view-component:
+  libs/vite-plugins: {}
+
+  libs/vitepress-view-component:
     dependencies:
       vitepress:
         specifier: '*'
@@ -171,7 +176,7 @@ importers:
         version: 1.2.3(markdown-it-container@3.0.0)(vitepress@1.0.0-rc.44)(vue@3.4.27)
       '@vitepress-preview/component':
         specifier: workspace:*
-        version: link:../../_node_modules/vitepress-view-component
+        version: link:../../libs/vitepress-view-component
       vitepress:
         specifier: 1.0.0-rc.44
         version: 1.0.0-rc.44(@algolia/client-search@4.23.3)(@types/node@20.14.2)(async-validator@4.2.5)(postcss@8.4.38)(search-insights@2.14.0)(typescript@5.4.5)

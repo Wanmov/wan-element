@@ -7,7 +7,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import vue from "@vitejs/plugin-vue";
 import shell from "shelljs";
 import dts from "vite-plugin-dts";
-import hooks from "./hooksPlugin";
+import { hooksPlugin as hooks } from "@wan-element/vite-plugins";
 import terser from "@rollup/plugin-terser";
 
 const TRY_MOVE_STYLES_DELAY = 800 as const;
