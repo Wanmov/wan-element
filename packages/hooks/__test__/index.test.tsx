@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
-import useEventListener from "../useEventListener";
-import useClickOutside from "../useClickOutside";
+import { useClickOutside, useEventListener } from "../index";
 
 
 describe("hooks/index", () => {
