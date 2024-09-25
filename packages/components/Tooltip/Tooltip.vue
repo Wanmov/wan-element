@@ -31,7 +31,7 @@ import { computed, onUnmounted, ref, watch, watchEffect, type Ref } from "vue";
 import type { TooltipEmits, TooltipInstance, TooltipProps } from "./types";
 import { bind, debounce, isNil, type DebouncedFunc } from "lodash-es";
 import { createPopper, type Instance } from "@popperjs/core";
-import useClickOutside from "@wan-element/hooks";
+import { useClickOutside } from "@wan-element/hooks";
 import useEvenstToTiggerNode from "./useEventsToTriggerNode";
 
 interface _TooltipProps extends TooltipProps {
