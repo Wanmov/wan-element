@@ -31,7 +31,7 @@ import { computed, onUnmounted, ref, watch, watchEffect, type Ref } from "vue";
 import type { TooltipEmits, TooltipInstance, TooltipProps } from "./types";
 import { bind, debounce, isNil, type DebouncedFunc } from "lodash-es";
 import { createPopper, type Instance } from "@popperjs/core";
-import useClickoutside from "../../hooks/useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 import useEvenstToTiggerNode from "./useEventsToTriggerNode";
 
 interface _TooltipProps extends TooltipProps {
@@ -214,7 +214,7 @@ watchEffect(() => {
   closeDebounce = debounce(bind(setVisible, null, false), closeDelay.value);
 });
 
-useClickoutside(containerNode, () => {
+useClickOutside(containerNode, () => {
   emits("click-outside");
   if (props.trigger === "hover" || props.manual) return;
   visible.value && closeFinal();
