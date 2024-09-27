@@ -6,6 +6,7 @@ import {
   WanCollapseItem,
   WanAlert,
   WanTooltip,
+  WanPopconfirm,
 } from "@wan-element/components";
 import type { Plugin } from "vue";
 export default [
@@ -16,4 +17,5 @@ export default [
   WanCollapseItem,
   WanAlert,
   WanTooltip,
+  WanPopconfirm,
 ] as Plugin[];
