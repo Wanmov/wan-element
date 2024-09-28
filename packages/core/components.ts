@@ -7,6 +7,8 @@ import {
   WanAlert,
   WanTooltip,
   WanPopconfirm,
+  WanDropdown,
+  WanDropdownItem,
 } from "@wan-element/components";
 import type { Plugin } from "vue";
 export default [
@@ -18,4 +20,6 @@ export default [
   WanAlert,
   WanTooltip,
   WanPopconfirm,
+  WanDropdown,
+  WanDropdownItem,
 ] as Plugin[];
