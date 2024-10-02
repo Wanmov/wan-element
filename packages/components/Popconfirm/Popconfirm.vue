@@ -13,7 +13,7 @@
             :type="cancelButtonType"
             @click="cancel"
           >
-            {{ cancelButtonText }}
+            {{ cancelButtonText || locale.t("popconfirm.cancelButtonText") }}
           </wan-button>
           <wan-button
             class="wan-popconfirm__confirm"
@@ -21,7 +21,7 @@
             :type="confirmButtonType"
             @click="confrim"
           >
-            {{ confirmButtonText }}
+            {{ confirmButtonText || locale.t("popconfirm.confirmButtonText") }}
           </wan-button>
         </div>
       </div>
@@ -39,13 +39,14 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { addUnit } from "@wan-element/utils"; 
+import { addUnit } from "@wan-element/utils";
 import WanTooltip from "../Tooltip/Tooltip.vue";
 import WanButton from "../Button/Button.vue";
 import WanIcon from "../Icon/Icon.vue";
 
 import type { TooltipInstance } from "../Tooltip";
 import type { PopconfirmProps, PopconfirmEmits } from "./types";
+import { useLocale } from "@wan-element/hooks";
 
 defineOptions({
   name: "WanPopconfirm",
@@ -63,6 +64,8 @@ const props = withDefaults(defineProps<PopconfirmProps>(), {
 const emits = defineEmits<PopconfirmEmits>();
 const tooltipRef = ref<TooltipInstance>();
 const style = computed(() => ({ width: addUnit(props.width) }));
+
+const locale = useLocale();
 
 function hidePopper() {
   tooltipRef.value?.hide();

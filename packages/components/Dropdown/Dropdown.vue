@@ -50,6 +50,7 @@ import type {
   DropdownContext,
 } from "./types";
 
+import { useDisabledStyle } from "@wan-element/hooks";
 import { DROPDOWN_CTX_KEY } from "./constants";
 
 import DropdownItem from "./DropdownItem.vue";
@@ -77,6 +78,8 @@ function handleItemClick(e: DropdownItemProps) {
   props.hideOnClick && tooltipRef.value?.hide();
   !isNil(e.command) && emits("command", e.command);
 }
+
+!TEST && useDisabledStyle();
 
 provide<DropdownContext>(DROPDOWN_CTX_KEY, {
   handleItemClick,

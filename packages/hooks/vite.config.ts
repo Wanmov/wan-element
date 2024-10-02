@@ -24,6 +24,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
+      external: ["vue", "lodash-es", "vue3-i18n"],
       output: {
         manualChunks(id) {
           if (includes(id, "/packages/hooks/use"))
