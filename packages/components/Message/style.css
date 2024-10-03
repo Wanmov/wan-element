@@ -1,0 +1,81 @@
+.wan-message {
+  --wan-message-bg-color: var(--wan-color-info-light-9);
+  --wan-message-border-color: var(--wan-border-color-lighter);
+  --wan-message-padding: 15px 19px;
+  --wan-message-close-size: 16px;
+  --wan-message-close-icon-color: var(--wan-text-color-placeholder);
+  --wan-message-close-hover-color: var(--wan-text-color-secondary);
+  --wan-message-icon-size: 16px;
+  --wan-message-icon-margin: 8px;
+}
+
+.wan-message {
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  border-radius: var(--wan-border-radius-base);
+  border-width: var(--wan-border-width);
+  border-style: var(--wan-border-style);
+  border-color: var(--wan-message-border-color);
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  background-color: var(--wan-message-bg-color);
+  padding: var(--wan-message-padding);
+  display: flex;
+  align-items: center;
+  transition:
+    top var(--wan-transition-duration),
+    opacity var(--wan-transition-duration),
+    transform var(--wan-transition-duration);
+  .wan-message__icon {
+    color: var(--wan-message-text-color);
+    font-size: var(--wan-message-icon-size);
+    width: var(--wan-message-icon-size);
+    margin-right: var(--wan-message-icon-margin);
+  }
+  .wan-message__content {
+    color: var(--wan-message-text-color);
+    overflow-wrap: break-word;
+  }
+  &.is-close .wan-message__content {
+    padding-right: 10px;
+  }
+  &.text-center {
+    justify-content: center;
+  }
+  .wan-message__close {
+    display: flex;
+    align-items: center;
+  }
+  .wan-message__close .wan-icon {
+    cursor: pointer;
+  }
+}
+
+@each $val in info, success, warning, danger {
+  .wan-message--$(val) {
+    --wan-message-bg-color: var(--wan-color-$(val)-light-9);
+    --wan-message-border-color: var(--wan-color-$(val)-light-8);
+    --wan-message-text-color: var(--wan-color-$(val));
+    .wan-message__close {
+      --wan-icon-color: var(--wan-color-$(val));
+    }
+  }
+}
+
+.wan-message--error {
+  --wan-message-bg-color: var(--wan-color-danger-light-9);
+  --wan-message-border-color: var(--wan-color-danger-light-8);
+  --wan-message-text-color: var(--wan-color-danger);
+  .wan-message__close {
+    --wan-icon-color: var(--wan-color-danger);
+  }
+}
+
+.wan-message.fade-up-enter-from,
+.wan-message.fade-up-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

@@ -10,11 +10,13 @@ import type {
   MessageType,
 } from "./types";
 import { messageTypes } from "./types";
-import { each, findIndex, isString, set } from "lodash-es";
+import { each, findIndex, get, isString, set } from "lodash-es";
 import { useId } from "@wan-element/hooks";
 import MessageConstructor from "./Message.vue";
+import useZIndex from "../../hooks/useZIndex";
 
 const instances: MessageInstance[] = shallowReactive([]);
+const { nextZIndex } = useZIndex();
 
 export const messageDefaults = {
   type: "info",
@@ -48,7 +50,7 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
   const _props: MessageProps = {
     ...props,
     id,
-    zIndex: 200,
+    zIndex: nextZIndex(),
     onDestory: destory,
   };
 
@@ -71,6 +73,13 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
 
   return instance;
 };
+
+export function getLastBottomOffset(this: MessageProps) {
+  const idx = findIndex(instances, { id: this.id });
+  if (idx <= 0) return 0;
+
+  return get(instances, [idx - 1, "vm", "exposed", "bottomOffset", "value"]);
+}
 
 export const message: MessageFn & Partial<Message> = (options = {}) => {
   const normalized = normalizedOptions(options);

@@ -1,5 +1,9 @@
 <template>
-  <Transition :name="transitionName" @after-leave="!visible && onDestory()">
+  <Transition
+    :name="transitionName"
+    @enter="boxHeight = messageRef!.getBoundingClientRect().height"
+    @after-leave="!visible && onDestory()"
+  >
     <div
       ref="messageRef"
       class="wan-message"
@@ -8,6 +12,7 @@
         'is-close': showClose,
         'text-center': center,
       }"
+      :style="customStyle"
       v-show="visible"
       role="alert"
       @mouseenter="clearTimer"
@@ -27,10 +32,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
-import { typeIconMap, RenderVnode } from "@wan-element/utils";
-import { delay } from "lodash-es";
-import type { MessageProps } from "./types";
+import { computed, onMounted, ref, watch } from "vue";
+import { typeIconMap, RenderVnode, addUnit } from "@wan-element/utils";
+import { bind, delay } from "lodash-es";
+import type { MessageCompInstance, MessageProps } from "./types";
+import { useEventListener, useOffset } from "@wan-element/hooks";
+import { getLastBottomOffset } from "./method";
+import WanIcon from "../Icon/Icon.vue";
 
 defineOptions({ name: "WanMessage" });
 
@@ -43,7 +51,19 @@ const props = withDefaults(defineProps<MessageProps>(), {
 
 const visible = ref(false);
 const messageRef = ref<HTMLDivElement>();
+const boxHeight = ref(0);
+
+const { topOffset, bottomOffset } = useOffset({
+  offset: props.offset,
+  boxHeight,
+  getLastBottomOffset: bind(getLastBottomOffset, props),
+});
+
 const iconName = computed(() => typeIconMap.get(props.type) ?? "circle-info");
+
+const customStyle = computed(() => ({
+  top: addUnit(topOffset.value),
+}));
 
 let timer: number;
 function startTimmer() {
@@ -59,13 +79,25 @@ function close() {
   visible.value = false;
 }
 
+watch(visible, (val) => {
+  if (!val) boxHeight.value = -props.offset; // 使得退出的动画更加流畅
+});
+
+useEventListener(document, "keydown", (e: Event) => {
+  const { code } = e as KeyboardEvent;
+  if (code === "Escape") close();
+});
+
 onMounted(() => {
   visible.value = true;
   startTimmer();
 });
 
-defineExpose({
+defineExpose<MessageCompInstance>({
   close,
+  bottomOffset,
 });
 </script>
-<style scope></style>
+<style scope>
+@import "./style.css";
+</style>
