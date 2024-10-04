@@ -1,0 +1,98 @@
+.wan-notification {
+  --wan-notification-width: 330px;
+  --wan-notification-padding: 14px 26px 14px 13px;
+  --wan-notification-radius: 8px;
+  --wan-notification-shadow: var(--wan-box-shadow-light);
+  --wan-notification-border-color: var(--wan-border-color-lighter);
+  --wan-notification-icon-size: 24px;
+  --wan-notification-close-font-size: var(--wan-message-close-size, 16px);
+  --wan-notification-content-font-size: var(--wan-font-size-base);
+  --wan-notification-content-color: var(--wan-text-color-regular);
+  --wan-notification-title-font-size: 16px;
+  --wan-notification-title-color: var(--wan-text-color-primary);
+  --wan-notification-close-color: var(--wan-text-color-secondary);
+  --wan-notification-close-hover-color: var(--wan-text-color-regular);
+}
+.wan-notification {
+  display: flex;
+  width: var(--wan-notification-width);
+  padding: var(--wan-notification-padding);
+  border-radius: var(--wan-notification-radius);
+  box-sizing: border-box;
+  border: 1px solid var(--wan-notification-border-color);
+  position: fixed;
+  background-color: var(--wan-bg-color-overlay);
+  box-shadow: var(--wan-notification-shadow);
+  transition:
+    opacity var(--wan-transition-duration),
+    transform var(--wan-transition-duration),
+    right var(--wan-transition-duration),
+    top 0.4s,
+    bottom var(--wan-transition-duration);
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  z-index: 9999;
+  &.right {
+    right: 10px;
+  }
+  &.left {
+    left: 10px;
+  }
+
+  .wan-notification__text {
+    margin: 0 10px;
+  }
+  .wan-notification__icon {
+    height: var(--wan-notification-icon-size);
+    width: var(--wan-notification-icon-size);
+    font-size: var(--wan-notification-icon-size);
+    color: var(--wan-notification-icon-color);
+  }
+
+  .wan-notification__title {
+    font-weight: 700;
+    font-size: var(--wan-notification-title-font-size);
+    line-height: var(--wan-notification-icon-size);
+    color: var(--wan-notification-title-color);
+    margin: 0;
+  }
+  .wan-notification__content {
+    font-size: var(--wan-notification-content-font-size);
+    line-height: 24px;
+    margin: 6px 0 0;
+    color: var(--wan-notification-content-color);
+    text-align: justify;
+  }
+  .wan-notification__close {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    cursor: pointer;
+    color: var(--wan-notification-close-color);
+    font-size: var(--wan-notification-close-font-size);
+  }
+}
+@each $val in info, success, warning, danger {
+  .wan-notification--$(val) {
+    --wan-notification-icon-color: var(--wan-color-$(val));
+    color: var(--el-notification-icon-color);
+  }
+}
+.wan-notification--error {
+  --wan-notification-icon-color: var(--wan-color-danger);
+  color: var(--el-notification-icon-color);
+}
+
+.wan-notification-fade-enter-from {
+  &.right {
+    right: 0;
+    transform: translate(100%);
+  }
+  &.left {
+    left: 0;
+    transform: translate(-100%);
+  }
+}
+.wan-notification-fade-leave-to {
+  opacity: 0;
+}

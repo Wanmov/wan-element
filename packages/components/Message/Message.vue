@@ -16,7 +16,7 @@
       v-show="visible"
       role="alert"
       @mouseenter="clearTimer"
-      @mouseleave="startTimmer"
+      @mouseleave="startTimer"
     >
       <wan-icon class="wan-message__icon" :icon="iconName" />
       <div class="wan-message__content">
@@ -63,10 +63,11 @@ const iconName = computed(() => typeIconMap.get(props.type) ?? "circle-info");
 
 const customStyle = computed(() => ({
   top: addUnit(topOffset.value),
+  zIndex: props.zIndex,
 }));
 
 let timer: number;
-function startTimmer() {
+function startTimer() {
   if (props.duration === 0) return;
   timer = delay(close, props.duration);
 }
@@ -90,7 +91,7 @@ useEventListener(document, "keydown", (e: Event) => {
 
 onMounted(() => {
   visible.value = true;
-  startTimmer();
+  startTimer();
 });
 
 defineExpose<MessageCompInstance>({

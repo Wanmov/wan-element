@@ -13,7 +13,7 @@ import { messageTypes } from "./types";
 import { each, findIndex, get, isString, set } from "lodash-es";
 import { useId } from "@wan-element/hooks";
 import MessageConstructor from "./Message.vue";
-import useZIndex from "../../hooks/useZIndex";
+import { useZIndex } from "@wan-element/hooks";
 
 const instances: MessageInstance[] = shallowReactive([]);
 const { nextZIndex } = useZIndex();
