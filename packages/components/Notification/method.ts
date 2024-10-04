@@ -1,18 +1,24 @@
 import { h, isVNode, render, shallowReactive } from "vue";
 import { useId, useZIndex } from "@wan-element/hooks";
-import type {
-  CreateNotificationProps,
-  NotificationFn,
-  NotificationHandler,
-  NotificationInstance,
-  NotificationParams,
-  NotificationProps,
-  NotificationType,
+import {
+  notificationPosition,
+  type CreateNotificationProps,
+  type NotificationFn,
+  type NotificationHandler,
+  type NotificationInstance,
+  type NotificationParams,
+  type NotificationProps,
+  type NotificationType,
 } from "./types";
 import { each, findIndex, get, isString } from "lodash-es";
 import NotificationConstructor from "./Notification.vue";
 
-const instances: NotificationInstance[] = shallowReactive([]);
+const instancesMap: Map<NotificationProps["position"], NotificationInstance[]> =
+  new Map();
+
+each(notificationPosition, (position) => {
+  instancesMap.set(position, shallowReactive([]));
+});
 const { nextZIndex } = useZIndex();
 
 export const notificationDefaults = {
@@ -31,11 +37,16 @@ const normalizedOptions = (
   return { ...notificationDefaults, ...result } as CreateNotificationProps;
 };
 
+const getInstancesByPosition = (
+  position: NotificationProps["position"]
+): NotificationInstance[] => instancesMap.get(position)!;
+
 const createNotification = (
   props: CreateNotificationProps
 ): NotificationInstance => {
   const id = useId().value;
   const container = document.createElement("div");
+  const instances = getInstancesByPosition(props.position || "top-right");
 
   const destory = () => {
     const idx = findIndex(instances, { id });
@@ -82,16 +93,19 @@ export const notification: NotificationFn & Partial<Notification> = (
 };
 
 export function closeAll(type?: NotificationType) {
-  each(instances, (instance) => {
-    if (type) {
-      instance.props.type === type && instance.handler.close();
-      return;
-    }
-    instance.handler.close();
+  instancesMap.forEach((instances) => {
+    each(instances, (instance) => {
+      if (type) {
+        instance.props.type === type && instance.handler.close();
+        return;
+      }
+      instance.handler.close();
+    });
   });
 }
 
 export function getLastBottomOffset(this: NotificationProps) {
+  const instances = getInstancesByPosition(this.position || "top-right");
   const idx = findIndex(instances, { id: this.id });
   if (idx <= 0) return 0;
 

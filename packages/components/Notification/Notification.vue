@@ -9,6 +9,7 @@
       class="wan-notification"
       :class="{
         [`wan-notification--${type}`]: type,
+        [horizontalClass]: true,
         'show-close': showClose,
       }"
       :style="customStyle"
@@ -71,8 +72,16 @@ const { topOffset, bottomOffset } = useOffset({
 
 const iconName = computed(() => typeIconMap.get(props.type) ?? "circle-info");
 
+const horizontalClass = computed(() =>
+  props.position.endsWith("right") ? "right" : "left"
+);
+
+const verticalProperty = computed(() =>
+  props.position.startsWith("top") ? "top" : "bottom"
+);
+
 const customStyle = computed(() => ({
-  top: addUnit(topOffset.value),
+  [verticalProperty.value]: addUnit(topOffset.value),
   zIndex: props.zIndex,
 }));
 
