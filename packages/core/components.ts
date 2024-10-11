@@ -12,6 +12,7 @@ import {
   WanConfigProvider,
   WanMessage,
   WanNotification,
+  WanInput,
 } from "@wan-element/components";
 import type { Plugin } from "vue";
 export default [
@@ -28,4 +29,5 @@ export default [
   WanConfigProvider,
   WanMessage,
   WanNotification,
+  WanInput,
 ] as Plugin[];
