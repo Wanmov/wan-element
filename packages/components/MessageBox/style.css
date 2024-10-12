@@ -1,0 +1,169 @@
+.wan-message-box {
+  --wan-message-box-title-color: var(--wan-text-color-primary);
+  --wan-message-box-width: 420px;
+  --wan-message-box-border-radius: var(--wan-border-radius-base);
+  --wan-message-box-font-size: var(--wan-font-size-large);
+  --wan-message-box-content-font-size: var(--wan-font-size-base);
+  --wan-message-box-content-color: var(--wan-text-color-regular);
+  --wan-message-box-padding-primary: 12px;
+  --wan-message-box-font-line-height: var(--wan-font-size-medium);
+  --wan-message-box-close-size: var(--wan-message-close-size, 16px);
+}
+
+.wan-overlay-message-box {
+  text-align: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 16px;
+  overflow: auto;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+  }
+}
+
+.wan-message-box {
+  display: inline-block;
+  position: relative;
+  max-width: var(--wan-message-box-width);
+  width: 100%;
+  padding: var(--wan-message-box-padding-primary);
+  vertical-align: middle;
+  background-color: var(--wan-bg-color);
+  border-radius: var(--wan-message-box-border-radius);
+  font-size: var(--wan-message-box-font-size);
+  text-align: left;
+  overflow: hidden;
+  backface-visibility: hidden;
+
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &.is-center {
+    .wan-message-box__title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .wan-message-box__footer,
+    .wan-message-box__content {
+      justify-content: center;
+    }
+  }
+
+  :deep(.wan-icon) {
+    @each $val in info, success, warning, danger {
+      &.wan-icon-$(val) {
+        color: var(--wan-color-$(val)) !important;
+      }
+    }
+    &.wan-icon-error {
+      color: var(--wan-color-danger) !important;
+    }
+  }
+
+  .wan-message-box__header {
+    padding-bottom: var(--wan-message-box-padding-primary);
+
+    .wan-message-box__title {
+      color: var(--wan-message-box-title-color);
+      font-size: var(--wan-message-box-font-size);
+      line-height: var(--wan-message-box-font-line-height);
+    }
+
+    .wan-message-box__header-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: var(--wan-message-box-close-size);
+      cursor: pointer;
+
+      i {
+        color: var(--wan-color-info);
+        font-size: inherit;
+      }
+      &:focus,
+      &:hover {
+        i {
+          color: var(--wan-color-danger);
+        }
+      }
+    }
+
+    &.show-close {
+      padding-right: calc(
+        var(--wan-message-box-padding-primary) +
+          var(--wan-message-box-close-size)
+      );
+    }
+  }
+
+  .wan-message-box__content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--wan-message-box-content-font-size);
+    color: var(--wan-message-box-content-color);
+    .wan-message-box__message {
+      margin: 0;
+      & p {
+        margin: 0;
+        line-height: var(--wan-message-box-font-line-height);
+      }
+    }
+  }
+  .wan-message-box__input {
+    padding-top: 12px;
+  }
+
+  .wan-message-box__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: var(--wan-message-box-padding-primary);
+  }
+}
+
+.fade-in-linear-enter-active {
+  .wan-overlay-message-box {
+    animation: msgbox-fade-in var(--wan-transition-duration);
+  }
+}
+
+.fade-in-linear-leave-active {
+  .wan-overlay-message-box {
+    animation: msgbox-fade-in var(--wan-transition-duration) reverse;
+  }
+}
+
+@keyframes msgbox-fade-in {
+  0% {
+    transform: translate3d(0, -20px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
