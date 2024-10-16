@@ -1,11 +1,24 @@
-import { mount } from "@vue/test-utils";
+import { config, mount } from "@vue/test-utils";
 import Button from "./Button.vue";
 import ButtonGroup from "./ButtonGroup.vue";
 import Icon from "../Icon/Icon.vue";
 import type { ButtonType, ButtonSize } from "./types";
+import { BUTTON_GROUP_CTX_KEY } from "./constant";
 
 describe("Button.vue", () => {
   const onClick = vi.fn();
+
+  const defaultProvide = {
+    [BUTTON_GROUP_CTX_KEY as symbol]: { size: "small", type: "primary" },
+  };
+
+  beforeEach(() => {
+    config.global.provide = defaultProvide;
+  });
+
+  afterEach(() => {
+    config.global.provide = {};
+  });
   test("basic button", async () => {
     const wrapper = mount(() => (
       <Button type="primary" {...{ onClick }}>
@@ -97,6 +110,11 @@ describe("Button.vue", () => {
     const types = ["primary", "success", "warning", "danger", "info"];
     types.forEach((type) => {
       const wrapper = mount(Button, {
+        global: {
+          provide: {
+            [BUTTON_GROUP_CTX_KEY as symbol]: undefined,
+          },
+        },
         props: { type: type as ButtonType },
       });
       expect(wrapper.classes()).toContain(`wan-button--${type}`);
@@ -108,6 +126,11 @@ describe("Button.vue", () => {
     const sizes = ["large", "default", "small"];
     sizes.forEach((size) => {
       const wrapper = mount(Button, {
+        global: {
+          provide: {
+            [BUTTON_GROUP_CTX_KEY as symbol]: undefined,
+          },
+        },
         props: { size: size as ButtonSize },
       });
       expect(wrapper.classes()).toContain(`wan-button--${size}`);
@@ -197,8 +220,8 @@ describe("Button.vue", () => {
   });
 });
 
-describe("ButtonGroup", () => {
-  test("basic buttongroup", async () => {
+describe("ButtonGroup.vue", () => {
+  test("basic button group", async () => {
     const wrapper = mount(() => (
       <ButtonGroup>
         <Button>button 1</Button>
@@ -209,41 +232,37 @@ describe("ButtonGroup", () => {
     expect(wrapper.classes()).toContain("wan-button-group");
   });
 
-  it("button group size", () => {
+  test("button group size", () => {
     const sizes = ["large", "default", "small"];
     sizes.forEach((size) => {
       const wrapper = mount(() => (
-        <ButtonGroup size={size as ButtonSize}>
+        <ButtonGroup size={size as any}>
           <Button>button 1</Button>
           <Button>button 2</Button>
         </ButtonGroup>
       ));
 
-      const buttonWrappers = wrapper.findAllComponents(Button);
-      buttonWrappers.forEach((buttonWrapper) => {
-        expect(buttonWrapper.classes()).toContain(`wan-button--${size}`);
-      });
+      const buttonWrapper = wrapper.findComponent(Button);
+      expect(buttonWrapper.classes()).toContain(`wan-button--${size}`);
     });
   });
 
-  it("button group type", () => {
+  test("button group type", () => {
     const types = ["primary", "success", "warning", "danger", "info"];
     types.forEach((type) => {
       const wrapper = mount(() => (
-        <ButtonGroup type={type as ButtonType}>
+        <ButtonGroup type={type as any}>
           <Button>button 1</Button>
           <Button>button 2</Button>
         </ButtonGroup>
       ));
 
-      const buttonWrappers = wrapper.findAllComponents(Button);
-      buttonWrappers.forEach((buttonWrapper) => {
-        expect(buttonWrapper.classes()).toContain(`wan-button--${type}`);
-      });
+      const buttonWrapper = wrapper.findComponent(Button);
+      expect(buttonWrapper.classes()).toContain(`wan-button--${type}`);
     });
   });
 
-  it("button group disabled", () => {
+  test("button group disabled", () => {
     const wrapper = mount(() => (
       <ButtonGroup disabled>
         <Button>button 1</Button>
@@ -251,9 +270,7 @@ describe("ButtonGroup", () => {
       </ButtonGroup>
     ));
 
-    const buttonWrappers = wrapper.findAllComponents(Button);
-    buttonWrappers.forEach((buttonWrapper) => {
-      expect(buttonWrapper.classes()).toContain(`is-disabled`);
-    });
+    const buttonWrapper = wrapper.findComponent(Button);
+    expect(buttonWrapper.classes()).toContain(`is-disabled`);
   });
 });

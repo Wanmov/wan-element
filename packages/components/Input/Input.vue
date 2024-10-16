@@ -90,7 +90,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, nextTick, ref, shallowRef, useAttrs } from "vue";
+import { computed, nextTick, ref, shallowRef, useAttrs, watch } from "vue";
 import { useId, useFocusController } from "@wan-element/hooks";
 import { each, noop } from "lodash-es";
 import Icon from "../Icon/Icon.vue";
@@ -174,6 +174,14 @@ function handleChange() {
 function togglePwdVisible() {
   pwdVisible.value = !pwdVisible.value;
 }
+
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    innerValue.value = newVal;
+    // 表单校验出发
+  }
+);
 
 defineExpose<InputInstance>({
   ref: _ref,

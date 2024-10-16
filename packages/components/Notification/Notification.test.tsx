@@ -1,6 +1,7 @@
-import { describe, test, expect } from "vitest";
 import { notification } from "./method";
-import { nextTick } from "vue";
+import { rAF } from "@wan-element/utils";
+import type { NotificationProps } from "./types";
+import { useId } from "@wan-element/hooks";
 
 function getTopValue(element: Element) {
   const styles = window.getComputedStyle(element);
@@ -8,20 +9,18 @@ function getTopValue(element: Element) {
   return Number.parseFloat(topValue);
 }
 
-const rAF = async () => {
-  return new Promise((res) => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(async () => {
-        res(null);
-        await nextTick();
-      });
-    });
-  });
-};
-
 describe("Notification", () => {
+  const defaultProps: NotificationProps = {
+    id: useId().value,
+    zIndex: 2000,
+    message: "hello notify",
+    duration: 0,
+    title: "Default Title",
+    position: "top-right",
+    onDestory: () => {},
+  };
   test("notification() function", async () => {
-    const handler = notification({ message: "hello notify", duration: 0 });
+    const handler = notification(defaultProps);
     await rAF();
     expect(document.querySelector(".wan-notification")).toBeTruthy();
     handler.close();
@@ -30,8 +29,8 @@ describe("Notification", () => {
   });
 
   test("call notification() function more than once", async () => {
-    notification({ message: "hello notify", duration: 0 });
-    notification({ message: "hello notify", duration: 0 });
+    notification(defaultProps);
+    notification(defaultProps);
     await rAF();
     expect(document.querySelectorAll(".wan-notification").length).toBe(2);
     notification.closeAll();
@@ -40,8 +39,8 @@ describe("Notification", () => {
   });
 
   test("notification offset", async () => {
-    notification({ message: "hello msg", duration: 0, offset: 100 });
-    notification({ message: "hello msg", duration: 0, offset: 50 });
+    notification({ ...defaultProps, offset: 100 });
+    notification({ ...defaultProps, offset: 50 });
     await rAF();
     const elements = document.querySelectorAll(".wan-notification");
     expect(elements.length).toBe(2);

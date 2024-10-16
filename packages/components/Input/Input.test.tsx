@@ -75,6 +75,8 @@ describe("Input.vue", () => {
 
     // v-model 异步更新
     await wrapper.setProps({ modelValue: "test3" });
+
+    await wrapper.vm.$nextTick();
     expect(input.element.value).toBe("test3");
   });
 

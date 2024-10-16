@@ -7,6 +7,7 @@ import {
   WanCollapse,
   WanCollapseItem,
   WanIcon,
+  WanTooltip,
 } from "./index";
 import { map, get } from "lodash-es";
 
@@ -17,6 +18,7 @@ const components = [
   WanCollapseItem,
   WanIcon,
   WanAlert,
+  WanTooltip,
 ] as Plugin[];
 
 describe("components/index.ts", () => {

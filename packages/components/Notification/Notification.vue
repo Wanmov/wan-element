@@ -42,11 +42,12 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import type { NotificationCompInstance, NotificationProps } from "./types";
 import { useOffset } from "@wan-element/hooks";
 import { getLastBottomOffset } from "./method";
 import { bind, delay } from "lodash-es";
-import { addUnit, typeIconMap } from "@wan-element/utils";
+import { addUnit, typeIconMap, RenderVnode } from "@wan-element/utils";
+import WanIcon from "../Icon/Icon.vue";
+import type { NotificationCompInstance, NotificationProps } from "./types";
 
 defineOptions({ name: "WanNotification" });
 

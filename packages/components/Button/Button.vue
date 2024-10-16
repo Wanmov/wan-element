@@ -66,9 +66,9 @@ const size = computed(() => ctx?.size ?? props?.size ?? "");
 const type = computed(() => ctx?.type ?? props?.type ?? "");
 const disabled = computed(() => ctx?.disabled || props?.disabled || false);
 
-const iconStyle = computed(() => {
-  marginRight: slots.default ? "6px" : "0px";
-});
+const iconStyle = computed(() => ({
+  marginRight: slots.default ? "6px" : "0px",
+}));
 
 const handleClick = (e: MouseEvent) => emits("click", e);
 const handleClickThrottle = throttle(handleClick, props.throttleDuration, {

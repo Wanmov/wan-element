@@ -1,0 +1,48 @@
+.wan-loading {
+  --wan-loading-icon-color: var(--wan-color-primary);
+  --wan-loading-mask-margin: 0;
+  --wan-loading-mask-size: 100%;
+  --wan-loading-icon-size: 42px;
+  --wan-loading-font-size: 14px;
+  --wan-loading-z-index: 20000;
+}
+.wan-loading {
+  opacity: 1;
+  transition: opacity var(--wan-transition-duration);
+  &.wan-loading__mask {
+    position: absolute;
+    margin: var(--wan-loading-mask-margin);
+    top: var(--wan-loading-mask-margin);
+    right: var(--wan-loading-mask-margin);
+    bottom: var(--wan-loading-mask-margin);
+    left: var(--wan-loading-mask-margin);
+    height: var(--wan-loading-mask-size);
+    width: var(--wan-loading-mask-size);
+    z-index: var(--wan-loading-z-index);
+    background: var(--wan-loading-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.is-fullscreen {
+      position: fixed;
+    }
+  }
+  .wan-loading__spinner {
+    color: var(--wan-loading-icon-color);
+    text-align: center;
+    .wan-loading-text {
+      margin: 3px 0;
+      font-size: var(--wan-loading-font-size);
+    }
+    i {
+      font-size: var(--wan-loading-icon-size);
+    }
+  }
+}
+
+.wan-loading-parent--relative {
+  position: relative !important;
+}
+.wan-loading-parent--hiden {
+  overflow: hidden !important;
+}

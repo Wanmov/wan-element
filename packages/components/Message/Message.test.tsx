@@ -1,16 +1,5 @@
-import { nextTick } from "vue";
 import { message, closeAll } from "./method";
-
-const rAF = async () => {
-  return new Promise((res) => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(async () => {
-        res(null);
-        await nextTick();
-      });
-    });
-  });
-};
+import { rAF } from "@wan-element/utils";
 
 function getTopValue(element: Element) {
   const styles = window.getComputedStyle(element);

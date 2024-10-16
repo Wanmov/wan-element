@@ -9,9 +9,9 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   define: {
-    "@DEV": JSON.stringify(false),
-    "@PROD": JSON.stringify(false),
-    "@TEST": JSON.stringify(true),
+    DEV: JSON.stringify(false),
+    PROD: JSON.stringify(false),
+    TEST: JSON.stringify(true),
   },
   test: {
     globals: true,

@@ -1,13 +1,25 @@
-import { mount } from "@vue/test-utils";
+import { config, mount } from "@vue/test-utils";
 import { each, get } from "lodash-es";
 import { WanPopconfirm } from ".";
 import { withInstall } from "@wan-element/utils";
 import type { PopconfirmProps } from "./types";
 
 import PopConfirm from "./Popconfirm.vue";
+import { BUTTON_GROUP_CTX_KEY } from "../Button/constant";
+import { i18nSymbol } from "vue3-i18n";
 
 const onConfirm = vi.fn();
 const onCancel = vi.fn();
+
+const mockI18n = {
+  t: (key: string) => {
+    const translations: Record<string, string> = {
+      "popconfirm.cancelButtonText": "取消",
+      "popconfirm.confirmButtonText": "确认",
+    };
+    return translations[key] || key; // 返回对应翻译或原键
+  },
+};
 
 describe("Popconfirm/index.ts", () => {
   it("should be exported with withInstall()", () => {
@@ -46,6 +58,12 @@ describe("Popconfirm.vue", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.clearAllMocks();
+
+    Reflect.set(config.global.provide, i18nSymbol, mockI18n);
+  });
+
+  afterEach(() => {
+    config.global.provide = {};
   });
 
   it("should accept all props", () => {
@@ -71,19 +89,31 @@ describe("Popconfirm.vue", () => {
   });
 
   test("popconfirm emits", async () => {
-    const wrapper = mount(() => (
-      <div>
-        <div id="outside"></div>
-        <PopConfirm
-          title="Test Title"
-          hideIcon={true}
-          onConfirm={onConfirm}
-          onCancel={onCancel}
-        >
-          <button id="trigger">trigger</button>
-        </PopConfirm>
-      </div>
-    ));
+    const wrapper = mount(
+      () => (
+        <div>
+          <div id="outside"></div>
+          <PopConfirm
+            title="Test Title"
+            hideIcon={true}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+          >
+            <button id="trigger">trigger</button>
+          </PopConfirm>
+        </div>
+      ),
+      {
+        global: {
+          provide: {
+            [BUTTON_GROUP_CTX_KEY as symbol]: {
+              size: "small",
+              type: "primary",
+            },
+          },
+        },
+      }
+    );
 
     const triggerNode = wrapper.find("#trigger");
     expect(triggerNode.exists()).toBeTruthy();
