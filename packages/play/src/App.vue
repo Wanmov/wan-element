@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
+const options = ref([
+  { value: "beijing", label: "Beijing" },
+  { value: "shanghai", label: "Shanghai" },
+]);
+const value = ref("");
 </script>
 
 <template>
-  <wan-button type="primary">111</wan-button>
+  <wan-select v-model="value" :options="options"></wan-select>
 </template>
 
-<style scoped>
-</style>

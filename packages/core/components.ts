@@ -16,6 +16,7 @@ import {
   WanMessageBox,
   WanLoading,
   WanSwitch,
+  WanSelect,
 } from "@wan-element/components";
 import type { Plugin } from "vue";
 export default [
@@ -36,4 +37,5 @@ export default [
   WanMessageBox,
   WanLoading,
   WanSwitch,
+  WanSelect,
 ] as Plugin[];
